@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let categoriaOffset = 0;
     let cargandoCategoria = false;
     let finCategoria = false;
-    let vistaActual = "productos"; // Nueva variable para rastrear la vista actual
+    let vistaActual = "productos"; 
 
     function actualizarMenu() {
         const loginLink = document.getElementById("login-link");
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const grid = document.querySelector(".grid");
         grid.innerHTML = '';
         
-        // Reiniciar parámetros de carga
+    
         offset = 0;
         categoriaOffset = 0;
         noMoreProducts = false;
@@ -59,8 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         loading = true;
         const grid = document.querySelector(".grid") || crearGrid();
         
-        // Mostrar indicador de carga
-        // Solo mostrar preloader mientras carga
+     
         let preloader = document.createElement("div");
         preloader.id = "scroll-preloader";
         preloader.textContent = "Cargando...";
@@ -72,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`${API_PRODUCTS}?offset=${offset}&limit=${limit}`)
             .then(res => res.json())
             .then(productos => {
-                // Eliminar el preloader inmediatamente
+                
                 const preloaderElement = document.getElementById("scroll-preloader");
                 if (preloaderElement) preloaderElement.remove();
                 
@@ -130,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
         
         if (nearBottom) {
-            // Solo cargar productos adicionales si estamos en la vista de productos o categoría
+            
             if (vistaActual === "productos" && !noMoreProducts && categoriaActualId === null) {
                 cargarProductosScroll();
             }
@@ -308,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cargandoCategoria || finCategoria || categoriaActualId === null) return;
         cargandoCategoria = true;
     
-        // Mostrar indicador temporal de carga
+       
         const grid = document.querySelector(".grid");
         const preloader = document.createElement("div");
         preloader.id = "scroll-preloader";
@@ -321,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`${API_PRODUCTS}?categoryId=${categoriaActualId}&offset=${categoriaOffset}&limit=${limit}`)
             .then(response => response.json())
             .then(productos => {
-                // Eliminar inmediatamente el indicador
+                
                 const preloaderElement = document.getElementById("scroll-preloader");
                 if (preloaderElement) preloaderElement.remove();
                 
@@ -367,10 +366,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Lista de usuarios disponibles para facilitar el login
+    
     let usuariosDisponibles = [];
     
-    // Cargar usuarios disponibles al inicio
+    
     function cargarUsuariosDisponibles() {
         fetch("https://api.escuelajs.co/api/v1/users")
             .then(res => res.json())
@@ -383,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
     
-    // Llamar a la función para cargar usuarios al iniciar
+    
     cargarUsuariosDisponibles();
 
     document.getElementById("login-link").addEventListener("click", function () {
@@ -400,13 +399,13 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `);
 
-        // Mostrar usuarios disponibles para facilitar el login
+        
         const mostrarListaUsuarios = () => {
             const listaUsuariosDiv = document.getElementById("lista-usuarios");
             if (listaUsuariosDiv) {
                 if (usuariosDisponibles.length > 0) {
                     listaUsuariosDiv.innerHTML = "";
-                    // Mostrar solo los primeros 5 usuarios para no sobrecargar la UI
+                    
                     usuariosDisponibles.slice(0, 5).forEach(user => {
                         const userItem = document.createElement("div");
                         userItem.classList.add("user-item");
@@ -418,7 +417,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         
                         userItem.addEventListener("click", () => {
                             document.querySelector("#login-form input[type=email]").value = user.email;
-                            document.querySelector("#login-form input[type=password]").value = "anypassword"; // La API no verifica contraseñas
+                            document.querySelector("#login-form input[type=password]").value = "anypassword"; 
                         });
                         
                         listaUsuariosDiv.appendChild(userItem);
@@ -429,13 +428,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
 
-        // Llamar a la función una sola vez
+        
         setTimeout(mostrarListaUsuarios, 500);
 
-        // Crear un nuevo form listener cada vez
+        
         const loginForm = document.getElementById("login-form");
         if (loginForm) {
-            // Eliminar cualquier listener previo antes de agregar uno nuevo
+            
             const nuevoLoginForm = loginForm.cloneNode(true);
             loginForm.parentNode.replaceChild(nuevoLoginForm, loginForm);
             
@@ -444,7 +443,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const email = this.querySelector("input[type=email]").value;
                 const password = this.querySelector("input[type=password]").value;
 
-                // Si ya tenemos los usuarios cargados, buscamos directamente
+                
                 if (usuariosDisponibles.length > 0) {
                     const user = usuariosDisponibles.find(u => u.email === email);
                     if (user) {
@@ -456,11 +455,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert("Usuario no encontrado. Por favor usa uno de los usuarios disponibles en la API.");
                     }
                 } else {
-                    // Si no tenemos usuarios cargados, hacemos la petición
+                    
                     fetch("https://api.escuelajs.co/api/v1/users")
                         .then(res => res.json())
                         .then(users => {
-                            usuariosDisponibles = users; // Actualizamos la lista
+                            usuariosDisponibles = users; 
                             const user = users.find(u => u.email === email);
                             if (user) {
                                 usuarioActual = user;
@@ -498,7 +497,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const email = this.querySelector("input[type=email]").value;
             const password = this.querySelector("input[type=password]").value;
 
-            // Mostrar indicador de carga
+           
             const submitButton = this.querySelector("button[type=submit]");
             const originalText = submitButton.textContent;
             submitButton.disabled = true;
@@ -518,9 +517,9 @@ document.addEventListener("DOMContentLoaded", function () {
             })
                 .then(res => res.json())
                 .then(data => {
-                    // Verificar si la respuesta contiene un id (simulación exitosa)
+                    
                     if (data && data.id) {
-                        // Simular que guardamos el usuario localmente (aunque no se podrá usar para login)
+                        
                         const nuevoUsuario = {
                             id: data.id,
                             name: name,
@@ -528,10 +527,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             avatar: data.avatar || `https://i.pravatar.cc/150?u=${email}`
                         };
                         
-                        // Mostrar mensaje de éxito
+                      
                         alert(`Usuario "${name}" registrado correctamente (simulación).\n\nRecuerda que la API no guarda realmente el usuario, por lo que deberás iniciar sesión con uno de los usuarios existentes.`);
                         
-                        // Cerrar el modal y mostrar el formulario de login
+                        
                         document.getElementById("user-modal").style.display = "none";
                         setTimeout(() => {
                             document.getElementById("login-link").click();
@@ -545,7 +544,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert("Error en el registro. Por favor, inténtalo de nuevo más tarde.");
                 })
                 .finally(() => {
-                    // Restaurar el botón
+                   
                     submitButton.disabled = false;
                     submitButton.textContent = originalText;
                 });
