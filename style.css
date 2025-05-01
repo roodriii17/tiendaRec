@@ -1,0 +1,687 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --primary: #111111; 
+  --accent: #e0e0e0; 
+  --background: #111111;
+  --text: #f5f5f5; 
+  --gray: #333333; 
+  --white: #ffffff;
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+header {
+  background: var(--background);
+  color: var(--text);
+  padding: 30px 0;
+  text-align: center;
+  border-bottom: 1px solid var(--gray);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+nav {
+  background: var(--background);
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  padding: 20px 0;
+}
+
+.menu a {
+  color: var(--text);
+  font-weight: 500;
+  text-decoration: none;
+  padding: 8px 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.menu a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.menu a:hover::after {
+  width: 100%;
+}
+
+.menu a:hover {
+  color: var(--accent);
+}
+
+
+#app {
+  max-width: 1300px;
+  margin: 60px auto;
+  padding: 0 24px;
+}
+
+.controles-ordenamiento {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 40px 0;
+  gap: 20px;
+}
+
+.controles-ordenamiento button {
+  background: none;
+  border: 1px solid var(--accent);
+  padding: 10px 20px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.controles-ordenamiento button:hover {
+  background: var(--accent);
+  color: var(--primary);
+}
+
+.controles-ordenamiento button.activo {
+  background: var(--accent);
+  color: var(--primary);
+}
+
+
+.categorias-opciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.categoria-opcion {
+  background: var(--background);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid var(--gray);
+  padding-bottom: 15px;
+}
+
+.categoria-opcion:hover {
+  transform: scale(1.02);
+}
+
+.categoria-opcion img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.categoria-opcion h3 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 14px;
+  color: var(--text);
+}
+
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+
+.producto, .categoria {
+  background: var(--background);
+  padding: 0;
+  border-radius: 0;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+
+.producto:hover, .categoria:hover {
+  transform: scale(1.02);
+}
+
+.producto img, .categoria img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+.producto h3, .categoria h3 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 14px;
+  color: var(--text);
+}
+
+.producto p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin-top: 6px;
+}
+
+.producto button {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  background: none;
+  border: 1px solid var(--accent);
+  padding: 8px 20px;
+  font-size: 0.9rem;
+}
+
+
+#app h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: var(--text);
+  letter-spacing: 1px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow-y: auto; 
+  padding: 40px 20px; 
+}
+
+.modal-content {
+  background: var(--background);
+  padding: 20px;
+  margin: auto;
+  border-radius: 0; 
+  width: 90%;
+  max-width: 400px; 
+  box-shadow: none; 
+  position: relative;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content h2 {
+  margin-bottom: 16px; 
+  font-size: 1.5rem; 
+  color: var(--text);
+  font-weight: 400;
+}
+
+.modal-content p {
+  margin-bottom: 16px; 
+  color: var(--accent);
+  font-size: 0.9rem; 
+}
+
+.modal-content img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 16px; 
+  border-radius: 0; 
+}
+
+.close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 28px;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+button {
+  background: none;
+  border: 1px solid var(--accent);
+  padding: 12px 30px;
+  font-weight: 600;
+  color: var(--text);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+}
+
+button:hover {
+  background: var(--accent);
+  color: var(--primary);
+}
+
+.carrito {
+  background: var(--background);
+  padding: 40px;
+  border-radius: 0;
+  border: 1px solid var(--gray);
+  max-width: 600px;
+  margin: 60px auto;
+  box-shadow: var(--shadow);
+}
+
+.carrito h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.carrito-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.carrito-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray);
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.carrito-item span {
+  display: block;
+}
+
+.carrito-item div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.carrito-item button {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.carrito-item button:hover {
+  background: var(--accent);
+  color: var(--primary);
+}
+
+.carrito-total {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+.carrito-total hr {
+  border: none;
+  border-top: 1px solid var(--gray);
+  margin: 20px 0;
+}
+
+.carrito-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.carrito-acciones button {
+  flex: 1;
+  padding: 14px 0;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+}
+
+.carrito-acciones button:hover {
+  background: var(--accent);
+  color: var(--primary);
+}
+
+
+.carrito-vacio {
+  text-align: center;
+  color: var(--gray);
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+
+
+#preloader {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--accent);
+  padding: 60px 0;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#usuarios-disponibles {
+  margin-top: 20px;
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+#lista-usuarios {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.user-item {
+  cursor: pointer;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.2s, transform 0.1s;
+  background-color: white;
+}
+
+.user-item:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.user-item:active {
+  transform: translateY(0);
+}
+
+.user-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.user-email {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 3px;
+}
+
+/* Estilos para usuarios disponibles en el modal de login */
+#usuarios-disponibles {
+  margin-top: 30px;
+  background-color: var(--background);
+  padding: 20px;
+  border: 1px solid var(--gray);
+}
+
+#lista-usuarios {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 15px;
+}
+
+.user-item {
+  cursor: pointer;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--gray);
+  transition: border-color 0.3s ease, transform 0.2s ease;
+  background-color: var(--background);
+}
+
+.user-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.user-item:active {
+  transform: translateY(0);
+}
+
+.user-item.selected {
+  border-color: var(--accent);
+  background-color: rgba(224, 224, 224, 0.1);
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.user-email {
+  font-size: 0.9em;
+  color: var(--accent);
+  margin-top: 5px;
+}
+
+/* Estilo para texto seleccionado */
+::selection {
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+/* Estilos para el modal de usuario */
+#user-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+#user-modal-content {
+  background-color: var(--background);
+  padding: 30px;
+  border: 1px solid var(--gray);
+  box-shadow: var(--shadow);
+  max-width: 400px;
+  width: 90%;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Estilos para formularios dentro del modal */
+#login-form, #register-form {
+  margin-top: 20px;
+}
+
+#login-form input, #register-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid var(--gray);
+  background-color: var(--background);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+#login-form input:focus, #register-form input:focus {
+  border-color: var(--accent);
+  outline: none;
+  background-color: rgba(224, 224, 224, 0.1);
+}
+
+#login-form button, #register-form button {
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s ease, color 0.3s ease;
+  margin-top: 10px;
+}
+
+#login-form button:hover, #register-form button:hover {
+  background: var(--accent);
+  color: var(--primary);
+}
+
+/* Tabs para cambiar entre login y registro */
+.auth-tabs {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.auth-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  color: var(--text);
+  border-bottom: 1px solid var(--gray);
+  transition: border-color 0.3s ease;
+}
+
+.auth-tab.active {
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  #user-modal-content {
+    padding: 20px;
+  }
+  
+  #login-form input, #register-form input, 
+  #login-form button, #register-form button {
+    padding: 10px;
+  }
+}
+/* Tabs para cambiar entre login y registro */
+.auth-tabs {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.auth-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  color: var(--text);
+  border-bottom: 1px solid var(--gray);
+  transition: border-color 0.3s ease;
+}
+
+.auth-tab.active {
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 480px) {
+  #user-modal-content {
+    padding: 20px;
+  }
+  
+  #login-form input, #register-form input, 
+  #login-form button, #register-form button {
+    padding: 10px;
+  }
+}
+
+
+footer {
+  background: var(--background);
+  color: var(--gray);
+  text-align: center;
+  padding: 20px;
+  margin-top: 60px;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--gray);
+}
+
+
+@media (max-width: 768px) {
+  .grid, .categorias-opciones {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+  }
+  
+  .producto img, .categoria img, .categoria-opcion img {
+    height: 280px;
+  }
+  
+  .controles-ordenamiento {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .controles-ordenamiento button {
+    flex: 1;
+    min-width: 120px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid, .categorias-opciones {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .controles-ordenamiento {
+    flex-direction: column;
+  }
+  
+  .controles-ordenamiento button {
+    width: 100%;
+  }
+}
